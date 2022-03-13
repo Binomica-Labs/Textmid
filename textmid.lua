@@ -18,9 +18,9 @@ if #arg < 1 then
 	print("Textmid v1.0 - CLI Plasmid Editor")
 	print("----------------------------------------------------------------------------")
 	print("")
-	print("usage: lua " .. arg[0] .. " [plasmid file fasta] ")
+	print("usage: lua " .. arg[0] .. " open " .. " [plasmid file fasta]")
 	print("")
-	print("example input: lua textmid.lua plasmidFile.fa")
+	print("example input: lua textmid.lua open plasmidFile.fa")
 	print("")
 	return
 end
