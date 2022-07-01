@@ -6,10 +6,59 @@
 		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ]]--
 
-
---handle passed arguments for later use 
-
 local plasmidSequence = ""
+
+local function fileExists(fileName)
+	local f = io.open(fileName, "r")
+	if f ~= nil then io.close(f)
+	return true
+	else
+	return false
+	end
+end
+
+
+
+function string:split(delimiter)
+    local result = {}
+    local from = 1
+    local delim_from, delim_to = string.find(self, delimiter, from, true)
+    while delim_from do
+        if (delim_from ~= 1) then
+            table.insert(result, string.sub(self, from, delim_from-1))
+        end
+   	    from = delim_to + 1
+        delim_from, delim_to = string.find(self, delimiter, from, true)
+    end
+    if (from <= #self) then table.insert(result, string.sub(self, from)) end
+    return result
+end
+
+
+
+local function splitBySep(inputstr, sep) 
+	sep = sep or '%s' 
+
+	local t={}  
+
+	for field,s in string.gmatch(inputstr, "([^"..sep.."]*)("..sep.."?)") do 
+		table.insert(t,field)  
+		if s == "" then 
+			return t 
+		end 
+	end 
+end
+
+
+
+local function splitByChunk(text, chunkSize)
+	local s = {}
+	for i=1, #text, chunkSize do
+		s[#s+1] = text:sub(i,i+chunkSize - 1)
+		end
+	return s
+end
+
 
 if #arg < 1 then
 	os.execute("clear")
@@ -30,4 +79,14 @@ if arg[1] == "open" then
 	plasmidSequence = plasmidFile:read("*a")
 	io.write(plasmidSequence)
 	plasmidFile:close()
+
+	
+
+
+end
+
+local makeRevComp(plasmidSequence)
+	
+	
+	return revComp
 end
